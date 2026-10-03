@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flash Box Bebidas | Bebidas, Tabacaria & Snacks em São Luís - MA</title>
+<meta name="description" content="Flash Box Bebidas — bebidas geladas, tabacaria completa e snacks com entrega rápida no Cohatrac III, São Luís - MA. Peça pelo WhatsApp!" />
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&display=swap" rel="stylesheet" />
+<link href="htt...ap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --amber:#f59e0b; --green:#25D366; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:#0a0a0d; color:#f4f4f5; font-family:'Plus Jakarta Sans',sans-serif; -webkit-font-smoothing:antialiased; }
+  .font-display { font-family:'Cabinet Grotesk','Plus Jakarta Sans',sans-serif; }
+  .gold-text { background:linear-gradient(115deg,#fde68a 0%,#f59e0b 45%,#d97706 70%,#fbbf24 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .glass { background:rgba(10,10,13,.75); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
+  ::selection { background:rgba(245,158,11,.85); color:#0a0a0d; }
+  ::-webkit-scrollbar { width:10px; } ::-webkit-scrollbar-track { background:#0a0a0d; }
+  ::-webkit-scrollbar-thumb { background:#26262e; border-radius:8px; border:2px solid #0a0a0d; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .marquee-track { animation:marquee 32s linear infinite; }
+  @keyframes pulseRing { 0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)} 70%{box-shadow:0 0 0 18px rgba(37,211,102,0)} 100%{box-shadow:0 0 0 0 rgba(37,211,102,0)} }
+  .pulse-ring { animation:pulseRing 2s cubic-bezier(.4,0,.6,1) infinite; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { animation:fadeUp .7s cubic-bezier(.22,1,.36,1) both; }
+  .d1{animation-delay:.12s}.d2{animation-delay:.24s}.d3{animation-delay:.36s}.d4{animation-delay:.48s}
+  .card { transition:border-color .3s, box-shadow .3s, background .3s; }
+  .card:hover { border-color:rgba(245,158,11,.4); box-shadow:0 14px 40px -16px rgba(245,158,11,.35); background:#16161d; }
+  .btn-amber { transition:box-shadow .3s, transform .2s; }
+  .btn-amber:hover { box-shadow:0 0 34px rgba(245,158,11,.45); transform:translateY(-2px); }
+  .btn-green { transition:box-shadow .3s, background .2s, transform .2s; }
+  .btn-green:hover { background:#1EBE5D; box-shadow:0 0 30px rgba(37,211,102,.45); }
+  #drawer { transition:transform .35s cubic-bezier(.22,1,.36,1); }
+  #drawer.open { transform:translateX(0)!important; }
+  #overlay { transition:opacity .3s; }
+  #toast { transition:opacity .3s, transform .3s; }
+  input, textarea { outline:none; }
+  input:focus, textarea:focus { border-color:rgba(245,158,11,.6)!important; }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="fixed top-0 inset-x-0 z-50 glass border-b border-amber-500/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 sm:h-20">
+    <a href="#inicio" class="flex items-center gap-3">
+      <span class="flex items-center justify-center w-10 h-10 rounded-xl" style="background:linear-gradient(135deg,#fcd34d,#f59e0b,#b45309);box-shadow:0 0 24px rgba(245,158,11,.45)">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#0a0a0d"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+      </span>
+      <span class="leading-none">
+        <span class="block font-display font-black text-lg sm:text-xl tracking-tight">FLASH <span class="gold-text">BOX</span></span>
+        <span class="hidden sm:block text-[10px] font-semibold uppercase tracking-[.28em] text-zinc-500 mt-1">Bebidas • Tabacaria • Snacks</span>
+      </span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8">
+      <a href="#catalogo" class="text-sm font-semibold text-zinc-400 hover:text-amber-400 transition-colors">Cervejas</a>
+      <a href="#catalogo" class="text-sm font-semibold text-zinc-400 hover:text-amber-400 transition-colors">Destilados</a>
+      <a href="#catalogo" class="text-sm font-semibold text-zinc-400 hover:text-amber-400 transition-colors">Tabacaria</a>
+      <a href="#catalogo" class="text-sm font-semibold text-zinc-400 hover:text-amber-400 transition-colors">Snacks</a>
+      <a href="#localizacao" class="text-sm font-semibold text-zinc-400 hover:text-amber-400 transition-colors">Localização</a>
+    </nav>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <button onclick="toggleDrawer(true)" class="relative flex items-center justify-center w-11 h-11 rounded-full border border-white/10 bg-white/5 text-zinc-200 hover:border-amber-500/50 hover:text-amber-400 transition-colors" aria-label="Abrir carrinho">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span id="cart-badge" class="hidden absolute -top-1 -right-1 items-center justify-center min-w-[20px] h-5 px-1 rounded-full bg-amber-500 text-zinc-950 text-[11px] font-extrabold">0</span>
+      </button>
+      <a href="https://wa.me/5598984918588" target="_blank" rel="noopener" class="btn-green flex items-center gap-2 rounded-full text-zinc-950 font-extrabold text-sm px-4 sm:px-5 h-11" style="background:var(--green)">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        <span class="hidden sm:inline">Peça no Zap</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="inicio" class="relative min-h-screen flex items-center overflow-hidden">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?crop=entropy&cs=srgb&fm=jpg&q=85" alt="Bar premium" class="w-full h-full object-cover" style="transform:scale(1.05)" />
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(10,10,13,.82),rgba(10,10,13,.7),#0a0a0d)"></div>
+    <div class="absolute -top-32 -left-32 rounded-full" style="width:480px;height:480px;background:rgba(245,158,11,.15);filter:blur(140px)"></div>
+  </div>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-32 pb-24 w-full">
+    <div class="max-w-3xl">
+      <div class="reveal"><span class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-amber-300">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        Entrega rápida no Cohatrac III e região
+      </span></div>
+      <h1 class="reveal d1 mt-7 font-display font-black text-4xl sm:text-5xl lg:text-7xl tracking-tight leading-[1.02]">
+        Bebida gelada, tabacaria & snacks
+        <span class="block gold-text mt-2">na velocidade de um flash.</span>
+      </h1>
+      <p class="reveal d2 mt-6 text-base sm:text-lg text-zinc-300/90 leading-relaxed max-w-xl">
+        A Flash Box é a sua conveniência premium em São Luís. Monte seu pedido no cardápio,
+        finalize em um clique e a gente resolve o resto pelo WhatsApp.
+      </p>
+      <div class="reveal d3 mt-9 flex flex-col sm:flex-row gap-4">
+        <a href="#catalogo" class="btn-amber inline-flex items-center justify-center gap-2 rounded-full px-8 h-14 font-display font-extrabold text-zinc-950 text-base" style="background:linear-gradient(90deg,#fbbf24,#d97706)">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          Ver Cardápio Completo
+        </a>
+        <a href="https://wa.me/5598984918588" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border px-8 h-14 font-display font-extrabold text-base transition-all hover:-translate-y-0.5" style="border-color:rgba(37,211,102,.5);background:rgba(37,211,102,.1);color:#4ce083">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          Falar com Atendente
+        </a>
+      </div>
+      <div class="reveal d4 mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-zinc-400">
+        <span class="inline-flex items-center gap-2">
+          <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          R. Um - Cohatrac III, São Luís - MA, 65074-280
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Aberto de terça a domingo
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Venda proibida para menores de 18 anos
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="relative overflow-hidden border-y border-amber-500/15 py-4" style="background:linear-gradient(90deg,#0d0d11,#14100a,#0d0d11)">
+  <div class="marquee-track flex w-max items-center" id="marquee"></div>
+</div>
+
+<!-- ============ CARDÁPIO ============ -->
+<section id="catalogo" class="relative py-20 sm:py-28 scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.24em] text-amber-400">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"/></svg>
+      Cardápio oficial Flash Box
+    </span>
+    <h2 class="mt-4 font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight">Escolha, adicione e <span class="gold-text">receba no flash.</span></h2>
+    <p class="mt-4 text-base text-zinc-400 leading-relaxed max-w-2xl">Monte seu pedido aqui mesmo. No final, tudo chega prontinho no nosso WhatsApp pra gente confirmar com você.</p>
+    <div class="mt-10 flex flex-wrap gap-3" id="filters"></div>
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="grid"></div>
+    <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-2xl border border-amber-500/20 p-5" style="background:rgba(245,158,11,.06)">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center justify-center w-11 h-11 rounded-xl border border-amber-500/30 shrink-0" style="background:rgba(245,158,11,.15)">
+          <svg class="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+        </span>
+        <p class="text-sm text-zinc-300 leading-relaxed"><span class="font-bold text-zinc-50">Gelo e carvão</span> também disponíveis na loja — consulte disponibilidade direto no WhatsApp.</p>
+      </div>
+      <a href="https://wa.me/5598984918588" target="_blank" rel="noopener" class="btn-green inline-flex items-center gap-2 rounded-full text-zinc-950 font-extrabold text-sm px-5 h-11 shrink-0" style="background:var(--green)">Consultar no Zap</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCALIZAÇÃO ============ -->
+<section id="localizacao" class="relative py-20 sm:py-28 scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.24em] text-amber-400">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Onde estamos
+    </span>
+    <h2 class="mt-4 font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight">Passe na loja ou <span class="gold-text">peça sem sair de casa.</span></h2>
+    <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+      <div class="relative overflow-hidden rounded-3xl border border-amber-500/20 p-8 sm:p-10" style="background:linear-gradient(135deg,#17130a,#131318,#0e0e12)">
+        <span class="flex items-center justify-center w-14 h-14 rounded-2xl border border-amber-500/30" style="background:rgba(245,158,11,.15)">
+          <svg class="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <p class="mt-6 text-xs font-bold uppercase tracking-[.24em] text-zinc-500">Endereço da loja</p>
+        <p class="mt-3 font-display font-extrabold text-2xl sm:text-3xl tracking-tight leading-snug">R. Um - Cohatrac III,<br/>São Luís - MA</p>
+        <p class="mt-2 text-lg font-bold text-amber-400 tracking-wide">CEP 65074-280</p>
+        <p class="mt-6 text-xs font-bold uppercase tracking-[.24em] text-zinc-500">Horário de funcionamento</p>
+        <ul class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 text-sm" id="hours"></ul>
+        <p class="mt-4 text-sm text-zinc-400">WhatsApp (98) 98491-8588 • Entrega cobrada à parte</p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="https://www.google.com/maps/search/?api=1&query=R.+Um+-+Cohatrac+III,+S%C3%A3o+Lu%C3%ADs+-+MA,+65074-280" target="_blank" rel="noopener" class="btn-amber inline-flex items-center justify-center gap-2 rounded-full px-6 h-12 font-bold text-sm text-zinc-950" style="background:linear-gradient(90deg,#fbbf24,#d97706)">Abrir no Google Maps</a>
+          <a href="https://waze.com/ul?q=R.%20Um%20-%20Cohatrac%20III%2C%20S%C3%A3o%20Lu%C3%ADs%20-%20MA%2C%2065074-280" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 h-12 font-bold text-sm text-zinc-200 hover:border-amber-500/40 hover:text-amber-300 transition-colors">Abrir no Waze</a>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl border border-white/10" style="min-height:340px">
+        <iframe title="Mapa Flash Box" src="https://maps.google.com/maps?q=R.%20Um%20-%20Cohatrac%20III%2C%20S%C3%A3o%20Lu%C3%ADs%20-%20MA%2C%2065074-280&z=16&output=embed" class="absolute inset-0 w-full h-full" style="filter:grayscale(35%) contrast(1.05);opacity:.9" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-amber-500/10" style="background:#08080a">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-10 h-10 rounded-xl" style="background:linear-gradient(135deg,#fcd34d,#f59e0b,#b45309)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="#0a0a0d"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          </span>
+          <span class="font-display font-black text-xl tracking-tight">FLASH <span class="gold-text">BOX</span></span>
+        </div>
+        <p class="mt-4 text-sm text-zinc-500 leading-relaxed max-w-xs">Sua conveniência premium em São Luís. Bebidas geladas, tabacaria completa e snacks pra qualquer momento.</p>
+      </div>
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[.24em] text-amber-400">Categorias</p>
+        <ul class="mt-4 space-y-2.5 text-sm text-zinc-400">
+          <li><a href="#catalogo" class="hover:text-amber-300 transition-colors">Cervejas geladas</a></li>
+          <li><a href="#catalogo" class="hover:text-amber-300 transition-colors">Destilados</a></li>
+          <li><a href="#catalogo" class="hover:text-amber-300 transition-colors">Tabacaria</a></li>
+          <li><a href="#catalogo" class="hover:text-amber-300 transition-colors">Snacks & petiscos</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[.24em] text-amber-400">Contato & Localização</p>
+        <ul class="mt-4 space-y-3 text-sm text-zinc-400">
+          <li>R. Um - Cohatrac III, São Luís - MA, 65074-280</li>
+          <li><a href="https://wa.me/5598984918588" target="_blank" rel="noopener" class="hover:text-amber-300 transition-colors">WhatsApp (98) 98491-8588</a></li>
+          <li><a href="https://instagram.com/flashboxgelada_" target="_blank" rel="noopener" class="hover:text-amber-300 transition-colors">Instagram @flashboxgelada_</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-zinc-600">© 2026 Flash Box Bebidas — Todos os direitos reservados.</p>
+      <p class="text-xs text-zinc-600">Proibida a venda de bebidas alcoólicas e produtos de tabacaria para menores de 18 anos. Beba com moderação.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ WHATSAPP FLUTUANTE ============ -->
+<a href="https://wa.me/5598984918588" target="_blank" rel="noopener" aria-label="WhatsApp" class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full text-zinc-950 pulse-ring transition-transform hover:scale-110" style="background:var(--green);box-shadow:0 8px 30px rgba(37,211,102,.45)">
+  <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<!-- ============ CARRINHO (DRAWER) ============ -->
+<div id="overlay" onclick="toggleDrawer(false)" class="fixed inset-0 z-[60] bg-black/60 opacity-0 pointer-events-none"></div>
+<aside id="drawer" class="fixed top-0 right-0 z-[70] h-full w-full sm:max-w-md flex flex-col border-l border-amber-500/15" style="background:#0e0e12;transform:translateX(100%)">
+  <div class="px-6 pt-6 pb-4 border-b border-white/5 flex items-center justify-between">
+    <h3 class="font-display font-black text-xl tracking-tight flex items-center gap-3">
+      <svg class="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Seu Pedido <span id="drawer-count" class="rounded-full border border-amber-500/30 px-3 py-0.5 text-xs font-bold text-amber-300" style="background:rgba(245,158,11,.15)">0 itens</span>
+    </h3>
+    <button onclick="toggleDrawer(false)" class="text-zinc-500 hover:text-zinc-200 text-2xl leading-none" aria-label="Fechar">×</button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-6 py-5" id="drawer-body"></div>
+  <div class="border-t border-white/5 px-6 py-5 space-y-4 bg-black/30" id="drawer-footer" style="display:none">
+    <div class="flex items-center justify-between">
+      <span class="text-sm font-semibold text-zinc-400">Subtotal</span>
+      <span id="subtotal" class="font-display font-black text-2xl text-amber-400 tracking-tight">R$ 0,00</span>
+    </div>
+    <p class="text-xs text-zinc-600" id="fee-note">Entrega cobrada à parte — valor confirmado no WhatsApp.</p>
+    <button onclick="checkout()" class="btn-green w-full flex items-center justify-center gap-2.5 rounded-full text-zinc-950 font-display font-extrabold text-base h-14" style="background:var(--green)">
+      Finalizar Pedido no WhatsApp
+    </button>
+  </div>
+</aside>
+
+<!-- ============ TOAST ============ -->
+<div id="toast" class="fixed top-5 left-1/2 z-[80] -translate-x-1/2 rounded-2xl border border-emerald-500/40 px-5 py-3 text-sm font-bold text-emerald-300 opacity-0 pointer-events-none" style="background:#0c1a12;transform:translate(-50%,-10px)"></div>
+
+<script>
+const WA = "5598984918588";
+const IMG = {
+  maco:"https://images.unsplash.com/photo-1572113564617-7230ee196d9a?crop=entropy&cs=srgb&fm=jpg&q=85",
+  neon:"https://images.unsplash.com/photo-1593974123009-e87a2188ae12?crop=entropy&cs=srgb&fm=jpg&q=85",
+  fumaca:"https://images.unsplash.com/photo-1527099908998-5b73a5fe2a0d?crop=entropy&cs=srgb&fm=jpg&q=85",
+  noite:"https://images.unsplash.com/photo-1480444704010-31f5e7c5707c?crop=entropy&cs=srgb&fm=jpg&q=85",
+  sedaDisplay:"https://images.unsplash.com/photo-1598052162797-ba3530cc75b1?crop=entropy&cs=srgb&fm=jpg&q=85",
+  sedaBrown:"https://images.unsplash.com/photo-1599050853298-e973d4841cdb?crop=entropy&cs=srgb&fm=jpg&q=85",
+  sedaPreparo:"https://images.unsplash.com/photo-1599050853416-4e3992e744d8?crop=entropy&cs=srgb&fm=jpg&q=85",
+  sedaPronta:"https://images.unsplash.com/photo-1662738895220-627133d6d84e?crop=entropy&cs=srgb&fm=jpg&q=85",
+};
+const ICONS = {
+  beer:'<path d="M17 11h1a3 3 0 0 1 0 6h-1M5 8h12v9a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8z"/><path d="M7 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  can:'<path d="M6 3h12l-1 5v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8L6 3z"/><path d="M7 12h10"/>',
+  martini:'<path d="M3 5h18l-9 9z"/><path d="M12 14v6M8 20h8"/>',
+  cookie:'<circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="14" cy="14" r="1" fill="currentColor"/><circle cx="13" cy="8" r="1" fill="currentColor"/>',
+  nut:'<path d="M12 3c-4 3-6 6-6 9a6 6 0 0 0 12 0c0-3-2-6-6-9z"/>',
+  zap:'<path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/>',
+  droplet:'<path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+  cigarette:'<path d="M3 15h13v4H3zM17 15h4v4h-4z"/><path d="M18 11c1.5-1.5 1.5-3 0-4.5M21 11c2-2 2-4.5 0-6.5"/>',
+  paper:'<path d="M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M10 8h4M10 12h4M10 16h2"/>',
+};
+function iconSvg(key, cls){ return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[key]||ICONS.beer}</svg>`; }
+
+const PRODUCTS = [
+  {id:"c1",name:"Budweiser 330 ml",sub:"Long Neck",price:8,cat:"Cervejas",icon:"beer"},
+  {id:"c2",name:"Corona 330 ml",sub:"Long Neck",price:12,cat:"Cervejas",icon:"beer",tag:"Premium"},
+  {id:"c3",name:"Spaten 355 ml",sub:"Long Neck",price:8,cat:"Cervejas",icon:"beer"},
+  {id:"c4",name:"Heineken Long Neck",sub:"Long Neck",price:10,cat:"Cervejas",icon:"beer",tag:"Mais Pedida"},
+  {id:"c5",name:"Skol Beats",sub:"Long Neck",price:12,cat:"Cervejas",icon:"beer"},
+  {id:"c6",name:"Skol Pilsen 600 ml",sub:"Garrafa 600 ml",price:10,cat:"Cervejas",icon:"beer"},
+  {id:"c7",name:"Stella Pure Gold 600 ml",sub:"Garrafa 600 ml",price:15,cat:"Cervejas",icon:"beer",tag:"Premium"},
+  {id:"c8",name:"Brahma Duplo Malte 600 ml",sub:"Garrafa 600 ml",price:13,cat:"Cervejas",icon:"beer"},
+  {id:"c9",name:"Budweiser 600 ml",sub:"Garrafa 600 ml",price:12,cat:"Cervejas",icon:"beer"},
+  {id:"c10",name:"Skol Pilsen 269 ml",sub:"Lata",price:4.5,cat:"Cervejas",icon:"can"},
+  {id:"c11",name:"Brahma Duplo Malte 350 ml",sub:"Lata",price:5,cat:"Cervejas",icon:"can"},
+  {id:"c12",name:"Spaten 350 ml",sub:"Lata",price:5.5,cat:"Cervejas",icon:"can"},
+  {id:"c13",name:"Budweiser 350 ml",sub:"Lata",price:4.5,cat:"Cervejas",icon:"can"},
+  {id:"c14",name:"Heineken 350 ml",sub:"Lata",price:7.5,cat:"Cervejas",icon:"can"},
+  {id:"c15",name:"Corona 350 ml",sub:"Lata",price:7,cat:"Cervejas",icon:"can"},
+  {id:"d1",name:"Gin Rock's",sub:"Gin seco",price:45,cat:"Destilados",icon:"martini",tag:"Mais Pedido"},
+  {id:"d2",name:"Gin Beefeater",sub:"London Dry",price:140,cat:"Destilados",icon:"martini",tag:"Premium"},
+  {id:"d3",name:"Vodka Slova",sub:"Destilado",price:20,cat:"Destilados",icon:"martini"},
+  {id:"d4",name:"Corote 500 ml",sub:"Coquetel",price:6.5,cat:"Destilados",icon:"martini"},
+  {id:"t1",name:"Lucky Strike Original",sub:"Cigarro • Maço",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.maco},
+  {id:"t2",name:"Lucky Strike Blue",sub:"Cigarro • Maço",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.maco},
+  {id:"t3",name:"Lucky Strike Click & Roll",sub:"Cigarro • Maço c/ cápsula",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.neon},
+  {id:"t4",name:"Lucky Strike Double Click",sub:"Cigarro • Maço c/ 2 cápsulas",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.neon},
+  {id:"t5",name:"Marlboro Vermelho",sub:"Cigarro • Maço",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.fumaca,tag:"Mais Pedido"},
+  {id:"t6",name:"Marlboro Gold",sub:"Cigarro • Maço",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.fumaca},
+  {id:"t7",name:"Marlboro Silver",sub:"Cigarro • Maço",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.noite},
+  {id:"t8",name:"Marlboro Ice",sub:"Cigarro • Mentol",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.noite},
+  {id:"t9",name:"Marlboro Double Fusion",sub:"Cigarro • 2 cápsulas",price:18,cat:"Tabacaria",icon:"cigarette",img:IMG.neon},
+  {id:"t10",name:"Carlton Original",sub:"Cigarro • Maço",price:20,cat:"Tabacaria",icon:"cigarette",img:IMG.maco},
+  {id:"t11",name:"Carlton Silver",sub:"Cigarro • Maço",price:20,cat:"Tabacaria",icon:"cigarette",img:IMG.fumaca},
+  {id:"t12",name:"Carlton Menthol",sub:"Cigarro • Mentol",price:20,cat:"Tabacaria",icon:"cigarette",img:IMG.noite},
+  {id:"t13",name:"Seda Smoking Red",sub:"Seda • King Size",price:6,cat:"Tabacaria",icon:"paper",img:IMG.sedaDisplay},
+  {id:"t14",name:"Seda Smoking Brown",sub:"Seda • Sem alvejante",price:7,cat:"Tabacaria",icon:"paper",img:IMG.sedaBrown,tag:"Orgânica"},
+  {id:"t15",name:"Seda Smoking Green",sub:"Seda • King Size",price:6,cat:"Tabacaria",icon:"paper",img:IMG.sedaPreparo},
+  {id:"t16",name:"Seda Smoking Deluxe",sub:"Seda • King Size slim",price:8,cat:"Tabacaria",icon:"paper",img:IMG.sedaPronta},
+  {id:"t17",name:"Smoking Master",sub:"Seda + piteira • Combo",price:8,cat:"Tabacaria",icon:"paper",img:IMG.sedaDisplay,tag:"Combo"},
+  {id:"s1",name:"Cheetos 40 g",sub:"Salgadinho",price:5,cat:"Snacks",icon:"cookie"},
+  {id:"s2",name:"Torcida 35 g",sub:"Salgadinho",price:4,cat:"Snacks",icon:"cookie"},
+  {id:"s3",name:"Fandangos 35 g",sub:"Salgadinho",price:4,cat:"Snacks",icon:"cookie"},
+  {id:"s4",name:"Micos 28 g",sub:"Salgadinho",price:3,cat:"Snacks",icon:"cookie"},
+  {id:"s5",name:"Doritos 32 g",sub:"Salgadinho",price:8,cat:"Snacks",icon:"cookie",tag:"Mais Pedido"},
+  {id:"s6",name:"Croquíssimo 24 g",sub:"Amendoim",price:2,cat:"Snacks",icon:"nut"},
+  {id:"s7",name:"Amendoim Japonês 145 g",sub:"Amendoim • Elma Chips",price:10,cat:"Snacks",icon:"nut"},
+  {id:"s8",name:"Amendoim Japonês 45 g",sub:"Amendoim • Elma Chips",price:6,cat:"Snacks",icon:"nut"},
+  {id:"e1",name:"Red Bull",sub:"Energético • Lata",price:12,cat:"Energéticos & Águas",icon:"zap",tag:"Mais Pedido"},
+  {id:"e2",name:"Bally Lata",sub:"Energético",price:13,cat:"Energéticos & Águas",icon:"zap"},
+  {id:"e3",name:"Bally 2 L",sub:"Energético • Garrafa",price:25,cat:"Energéticos & Águas",icon:"zap"},
+  {id:"e4",name:"Água Mineral 500 ml",sub:"Sem gás",price:3,cat:"Energéticos & Águas",icon:"droplet"},
+  {id:"e5",name:"Água Mineral 1,5 L",sub:"Sem gás",price:6,cat:"Energéticos & Águas",icon:"droplet"},
+];
+const CATS = ["Todos","Cervejas","Destilados","Tabacaria","Snacks","Energéticos & Águas"];
+const HOURS = [["Segunda","Fechado",1],["Terça","15h às 22h30"],["Quarta","14h às 22h30"],["Quinta","15h à 01h"],["Sexta","15h às 02h"],["Sábado","15h às 03h"],["Domingo","13h às 22h"]];
+const brl = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+
+let cart = {}, activeCat = "Todos", fulfillment = "entrega", payment = "Pix";
+
+// marquee
+(() => {
+  const items = ["BEBIDAS GELADAS","TABACARIA COMPLETA","SNACKS & PETISCOS","ENTREGA RÁPIDA","PAGAMENTO NO PIX","ATENDIMENTO NO WHATSAPP"];
+  const bolt = '<svg class="w-4 h-4 shrink-0" style="color:rgba(245,158,11,.7)" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>';
+  document.getElementById("marquee").innerHTML = [...items,...items].map(t =>
+    `<span class="flex items-center gap-6 px-6"><span class="font-display font-extrabold text-sm sm:text-base tracking-[.22em] text-zinc-500 whitespace-nowrap">${t}</span>${bolt}</span>`).join("");
+})();
+
+// horários
+document.getElementById("hours").innerHTML = HOURS.map(([d,h,closed]) =>
+  `<li class="flex items-center justify-between gap-4 border-b border-white/5 py-1.5"><span class="text-zinc-400 font-semibold">${d}</span><span class="font-bold ${closed?'text-red-400':'text-amber-300'}">${h}</span></li>`).join("");
+
+// filtros
+function renderFilters(){
+  document.getElementById("filters").innerHTML = CATS.map(c => {
+    const on = c === activeCat;
+    return `<button onclick="setCat('${c}')" class="rounded-full px-6 h-11 text-sm font-bold transition-all ${on?'text-zinc-950':'border border-white/10 text-zinc-400 hover:border-amber-500/40 hover:text-amber-300'}" style="${on?'background:linear-gradient(90deg,#fbbf24,#d97706);box-shadow:0 0 24px rgba(245,158,11,.35)':'background:rgba(255,255,255,.04)'}">${c}</button>`;
+  }).join("");
+}
+function setCat(c){ activeCat = c; renderFilters(); renderGrid(); }
+
+// grid
+function renderGrid(){
+  const list = activeCat === "Todos" ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeCat);
+  document.getElementById("grid").innerHTML = list.map(p => `
+    <article class="card flex items-center gap-4 rounded-2xl border border-white/5 p-4" style="background:#131318">
+      <span class="flex items-center justify-center w-12 h-12 rounded-xl border border-amber-500/20 text-amber-400 shrink-0 overflow-hidden" style="background:rgba(245,158,11,.1)">
+        ${p.img ? `<img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover">` : iconSvg(p.icon,"w-6 h-6")}
+      </span>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+          <h3 class="font-display font-bold text-sm sm:text-base tracking-tight truncate">${p.name}</h3>
+          ${p.tag ? `<span class="hidden sm:inline-block rounded-full bg-amber-500 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[.12em] text-zinc-950 shrink-0">${p.tag}</span>` : ""}
+        </div>
+        <p class="mt-0.5 text-xs text-zinc-500 truncate">${p.sub}</p>
+        <div class="mt-2 flex items-center justify-between gap-2">
+          <span class="font-display font-black text-lg text-amber-400 tracking-tight">${brl(p.price)}</span>
+          <button onclick="add('${p.id}')" class="inline-flex items-center gap-1 rounded-full border border-amber-500/30 px-3 h-9 text-xs font-bold text-amber-300 hover:bg-amber-500 hover:text-zinc-950 transition-all active:scale-95 shrink-0" style="background:rgba(245,158,11,.1)">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg> Adicionar
+          </button>
+        </div>
+      </div>
+    </article>`).join("");
+}
+
+// toast
+let toastTimer;
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.style.opacity = "1"; el.style.transform = "translate(-50%,0)";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.style.opacity = "0"; el.style.transform = "translate(-50%,-10px)"; }, 2200);
+}
+
+// carrinho
+function add(id){
+  cart[id] = (cart[id] || 0) + 1;
+  const p = PRODUCTS.find(x => x.id === id);
+  toast(`${p.name} adicionado!`);
+  renderCart();
+}
+function setQty(id, q){
+  if (q <= 0) delete cart[id]; else cart[id] = q;
+  renderCart();
+}
+function cartItems(){ return Object.entries(cart).map(([id,qty]) => ({p: PRODUCTS.find(x => x.id === id), qty})).filter(i => i.p); }
+function subtotal(){ return cartItems().reduce((s,i) => s + i.p.price * i.qty, 0); }
+
+function renderCart(){
+  const items = cartItems();
+  const totalQty = items.reduce((s,i) => s + i.qty, 0);
+  const badge = document.getElementById("cart-badge");
+  badge.textContent = totalQty;
+  badge.style.display = totalQty ? "flex" : "none";
+  document.getElementById("drawer-count").textContent = `${totalQty} ${totalQty === 1 ? "item" : "itens"}`;
+  const body = document.getElementById("drawer-body");
+  const footer = document.getElementById("drawer-footer");
+  if (!items.length){
+    footer.style.display = "none";
+    body.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-center gap-4 py-16">
+      <p class="text-zinc-400 font-semibold">Seu pedido está vazio</p>
+      <p class="text-sm text-zinc-600 max-w-[240px]">Explore o cardápio e adicione cervejas, tabacaria e snacks.</p></div>`;
+    return;
+  }
+  footer.style.display = "block";
+  document.getElementById("subtotal").textContent = brl(subtotal());
+  document.getElementById("fee-note").style.display = fulfillment === "entrega" ? "block" : "none";
+  body.innerHTML = `
+    <ul class="space-y-4">${items.map(({p,qty}) => `
+      <li class="flex gap-4 rounded-2xl border border-white/5 p-3" style="background:rgba(255,255,255,.03)">
+        <span class="flex items-center justify-center w-14 h-14 rounded-xl border border-amber-500/20 text-amber-400 shrink-0 overflow-hidden" style="background:rgba(245,158,11,.1)">
+          ${p.img ? `<img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">` : iconSvg(p.icon,"w-6 h-6")}
+        </span>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-start justify-between gap-2">
+            <p class="font-bold text-sm leading-snug truncate">${p.name}</p>
+            <button onclick="setQty('${p.id}',0)" class="text-zinc-600 hover:text-red-400" aria-label="Remover">✕</button>
+          </div>
+          <p class="text-xs text-zinc-500 mt-0.5">${brl(p.price)} cada</p>
+          <div class="mt-2.5 flex items-center justify-between">
+            <div class="flex items-center gap-1 rounded-full border border-white/10 p-1" style="background:rgba(0,0,0,.3)">
+              <button onclick="setQty('${p.id}',${qty-1})" class="flex items-center justify-center w-7 h-7 rounded-full text-zinc-300 hover:bg-white/10" aria-label="Diminuir">−</button>
+              <span class="w-7 text-center text-sm font-extrabold">${qty}</span>
+              <button onclick="setQty('${p.id}',${qty+1})" class="flex items-center justify-center w-7 h-7 rounded-full text-zinc-300 hover:bg-white/10" aria-label="Aumentar">+</button>
+            </div>
+            <span class="font-display font-extrabold text-amber-400 text-sm">${brl(p.price*qty)}</span>
+          </div>
+        </div>
+      </li>`).join("")}</ul>
+    <div class="mt-8 space-y-6">
+      <div>
+        <label class="text-xs font-bold uppercase tracking-[.16em] text-zinc-500">Seu nome (opcional)</label>
+        <input id="f-name" placeholder="Como podemos te chamar?" class="mt-2 w-full rounded-xl border border-white/10 px-4 h-12 text-sm placeholder:text-zinc-600 transition-colors" style="background:rgba(0,0,0,.3)">
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-[.16em] text-zinc-500">Entrega ou retirada?</label>
+        <div class="mt-2 grid grid-cols-2 gap-3">
+          <button onclick="setFulfillment('entrega')" class="rounded-xl border px-3 h-12 text-sm font-bold transition-all" style="${fulfillment==='entrega'?'border-color:#f59e0b;background:rgba(245,158,11,.1);color:#fcd34d':'border-color:rgba(255,255,255,.1);background:rgba(0,0,0,.3);color:#71717a'}">🛵 Entrega</button>
+          <button onclick="setFulfillment('retirada')" class="rounded-xl border px-3 h-12 text-sm font-bold transition-all" style="${fulfillment==='retirada'?'border-color:#f59e0b;background:rgba(245,158,11,.1);color:#fcd34d':'border-color:rgba(255,255,255,.1);background:rgba(0,0,0,.3);color:#71717a'}">🏪 Retirada</button>
+        </div>
+        ${fulfillment==='entrega' ? '<input id="f-address" placeholder="Rua, número, bairro e referência" class="mt-3 w-full rounded-xl border border-white/10 px-4 h-12 text-sm placeholder:text-zinc-600 transition-colors" style="background:rgba(0,0,0,.3)">' : ''}
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-[.16em] text-zinc-500">Pagamento</label>
+        <div class="mt-2 grid grid-cols-3 gap-2.5">
+          ${["Pix","Cartão","Dinheiro"].map(m => `<button onclick="setPayment('${m}')" class="rounded-xl border py-3 text-xs font-bold transition-all" style="${payment===m?'border-color:#f59e0b;background:rgba(245,158,11,.1);color:#fcd34d':'border-color:rgba(255,255,255,.1);background:rgba(0,0,0,.3);color:#71717a'}">${m}</button>`).join("")}
+        </div>
+      </div>
+      <div>
+        <label class="text-xs font-bold uppercase tracking-[.16em] text-zinc-500">Observações</label>
+        <textarea id="f-notes" rows="2" placeholder="Ex: bem gelada, troco pra R$ 100..." class="mt-2 w-full rounded-xl border border-white/10 px-4 py-3 text-sm placeholder:text-zinc-600 resize-none transition-colors" style="background:rgba(0,0,0,.3)"></textarea>
+      </div>
+    </div>`;
+}
+function setFulfillment(f){ fulfillment = f; renderCart(); }
+function setPayment(m){ payment = m; renderCart(); }
+
+function toggleDrawer(open){
+  document.getElementById("drawer").classList.toggle("open", open);
+  const ov = document.getElementById("overlay");
+  ov.style.opacity = open ? "1" : "0";
+  ov.style.pointerEvents = open ? "auto" : "none";
+  document.body.style.overflow = open ? "hidden" : "";
+}
+
+function checkout(){
+  const items = cartItems();
+  if (!items.length){ toast("Adicione itens antes de finalizar"); return; }
+  const name = (document.getElementById("f-name")?.value || "").trim();
+  const address = (document.getElementById("f-address")?.value || "").trim();
+  const notes = (document.getElementById("f-notes")?.value || "").trim();
+  if (fulfillment === "entrega" && !address){ toast("Informe o endereço de entrega"); return; }
+  const lines = items.map(({p,qty}) => `▪️ ${qty}x ${p.name} — ${brl(p.price*qty)}`);
+  const msg = [
+    "⚡ *NOVO PEDIDO — FLASH BOX BEBIDAS* ⚡","",
+    "🛒 *Itens do pedido:*", ...lines, "",
+    `💰 *Subtotal:* ${brl(subtotal())}`,
+    fulfillment === "entrega" ? "🛵 *Entrega:* Sim (cobrada à parte)" : "🏪 *Retirada:* Na loja",
+    ...(fulfillment === "entrega" ? [`📍 *Endereço:* ${address}`] : []),
+    `💳 *Pagamento:* ${payment}`,
+    ...(name ? [`🙋 *Nome:* ${name}`] : []),
+    ...(notes ? [`📝 *Obs:* ${notes}`] : []),
+    "", "Aguardo a confirmação! 🍻"
+  ].join("\n");
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, "_blank");
+  toast("Pedido enviado pro WhatsApp!");
+  cart = {}; renderCart(); toggleDrawer(false);
+}
+
+renderFilters(); renderGrid(); renderCart();
+</script>
+</body>
+</html>
